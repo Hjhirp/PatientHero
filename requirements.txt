@@ -1,0 +1,4 @@
+crewai>=0.1.0
+browserbase>=1.4.0
+wandb>=0.15.0
+python-dotenv>=0.21.0

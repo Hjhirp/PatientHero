@@ -1,0 +1,47 @@
+{
+  "clinics_houston_77065": [
+    {
+      "name": "MD Medical Group - West Houston",
+      "address": "11840 FM 1960 Road West, Houston, TX 77065",
+      "website": "https://mdmedicalgroup.us/location/west-houston/",
+      "specialty": "Family Medicine and Pediatrics",
+      "phone": "832-912-7044"
+    },
+    {
+      "name": "Renal Clinic of Houston",
+      "address": "10726 Huffmeister Rd, Suite 250, Houston, TX 77065",
+      "website": "https://www.renalclinicofhouston.com/location/tx/houston",
+      "specialty": "Nephrology",
+      "phone": "281-890-9944"
+    },
+    {
+      "name": "Kelsey-Seybold FM 1960 Clinic",
+      "address": "13114 FM 1960 West, Houston, TX 77065",
+      "website": "https://www.kelsey-seybold.com/find-a-location/fm-1960-clinic",
+      "specialty": "Multispecialty",
+      "phone": "713-442-8800",
+      "note": "Permanently closing April 30, 2025. Physicians moving to Northwest Campus."
+    },
+    {
+      "name": "Oak Street Health - Cypress",
+      "address": "11600 Farm to Market 1960 Rd W, Houston, TX 77065",
+      "website": "https://www.oakstreethealth.com/locations/houston-tx/cypress-doctors-office",
+      "specialty": "Primary Care (Medicare/Senior Focus)",
+      "phone": "888-812-1183"
+    },
+    {
+      "name": "Convenient Urgent Care",
+      "address": "10311 N Eldridge Pkwy, Houston, TX 77065",
+      "website": "https://convenienturgent.com/",
+      "specialty": "Urgent Care",
+      "phone": "Not specified"
+    }
+  ],
+  "metadata": {
+    "zip_code": "77065",
+    "city": "Houston",
+    "state": "Texas",
+    "search_date": "July 2025",
+    "total_clinics": 5
+  }
+}
