@@ -1,20 +1,148 @@
-# PatientHero - AI Healthcare Assistant
+# PatientHero - Complete AI Healthcare Assistant
 
-A modern, responsive chatbot interface inspired by ChatGPT UI, built specifically for healthcare interactions. This application provides a beautiful and intuitive way to interact with AI healthcare assistants.
+A comprehensive healthcare consultation platform that combines a modern ChatGPT-style interface with intelligent AI agents for medical information collection, symptom analysis, hospital search, appointment processing, and patient support throughout their healthcare journey.
 
-## Features
+## 🌟 Features
 
-- 🎨 **Modern UI**: Clean, responsive design with dark/light theme support
-- 💬 **Chat Interface**: Real-time messaging with message history
-- 📱 **Mobile Responsive**: Works perfectly on all device sizes
-- 🎯 **Healthcare Focused**: Designed specifically for medical conversations
-- 🔄 **Real-time Updates**: Live message updates and typing indicators
-- 📊 **Chat Organization**: Organized chat history with date grouping
-- 🎭 **Theme Support**: Dark and light mode toggle
-- ⚡ **Fast Performance**: Built with Next.js 14 and modern React patterns
+### Core Functionality
+- **🤖 Multi-Agent AI System**: Three specialized CrewAI agents for different phases of patient care
+- **💬 Intelligent Chat Interface**: Natural conversation flow with context-aware responses
+- **🏥 Hospital Discovery**: Automated search for nearby medical institutions using Exa.ai
+- **📅 Appointment Processing**: Parallel processing of hospital websites to find available slots
+- **🛣️ Journey Support**: Comfort guidance and reassurance during travel to hospital
+- **📊 Data Extraction**: Structured JSON output for seamless integration with other systems
+- **🔄 Background Processing**: Non-blocking appointment scraping and data processing
 
-## Tech Stack
+### Technical Features
+- **🎨 Modern UI**: Clean, responsive design with dark/light theme support
+- **� Mobile Responsive**: Works perfectly on all device sizes
+- **⚡ Real-time Processing**: Live updates and background task management
+- **🔒 Session Management**: Persistent sessions with conversation history
+- **📈 Monitoring**: Comprehensive logging with W&B Weave integration
+- **🛡️ Error Handling**: Robust error handling and graceful fallbacks
 
+## 🏗️ Architecture
+
+### AI Agent System (CrewAI)
+```
+┌─────────────────┐    ┌──────────────────┐    ┌──────────────────┐
+│   Chat Agent    │    │ Reasoning Agent  │    │ Extraction Agent │
+│ (Info Collect)  │ -> │ (Symptom Analys) │ -> │ (Data Structure) │
+└─────────────────┘    └──────────────────┘    └──────────────────┘
+         │                        │                        │
+         └────────────────────────┼────────────────────────┘
+                                  │
+                    ┌─────────────▼─────────────┐
+                    │     Gemini 2.5 Flash     │
+                    │    (Google AI API)       │
+                    └───────────────────────────┘
+```
+
+### Data Flow
+```
+User Input -> Chat Agent -> Basic Info Complete? 
+                              │
+                              ├─ No: Continue Collection
+                              │
+                              └─ Yes: Hospital Search (Exa.ai)
+                                      │
+                                      ├─ Background: Appointment Processing
+                                      │
+                                      └─ Reasoning Agent -> Comfort Guidance
+```
+
+### Backend Services
+- **FastAPI Server**: REST API with session management
+- **CrewAI Agents**: Specialized AI agents for different tasks
+- **Playwright**: Browser automation for appointment scraping
+- **Exa.ai Integration**: Hospital and clinic discovery
+- **W&B Weave**: AI interaction monitoring and tracing
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Node.js 18+** 
+- **Python 3.11+**
+- **Google Gemini API Key**
+- **W&B API Key** (for monitoring)
+- **Exa.ai API Key** (for hospital search)
+
+### 1. Clone and Setup
+```bash
+git clone <repository-url>
+cd PatientHero
+
+# Install frontend dependencies
+npm install
+
+# Setup Python environment
+cd crewai_agents
+chmod +x setup.sh
+./setup.sh
+
+# Install Playwright browsers
+conda activate patienthero-crewai
+playwright install
+```
+
+### 2. Environment Configuration
+Create `.env` files with your API keys:
+
+**Root `.env`:**
+```bash
+GEMINI_API_KEY=your_gemini_api_key
+WANDB_API_KEY=your_wandb_api_key
+WANDB_PROJECT=patienthero-crewai
+WANDB_ENTITY=your_wandb_entity
+EXA_API_KEY=your_exa_api_key
+```
+
+**`crewai_agents/.env`:**
+```bash
+GEMINI_API_KEY=your_gemini_api_key
+WANDB_API_KEY=your_wandb_api_key
+WANDB_PROJECT=patienthero-crewai
+WANDB_ENTITY=your_wandb_entity
+EXA_API_KEY=your_exa_api_key
+```
+
+### 3. Start the Services
+```bash
+# Terminal 1: Start the API server
+python api_server.py
+
+# Terminal 2: Start the frontend
+npm run dev
+```
+
+### 4. Access the Application
+- **Frontend**: http://localhost:3000
+- **API Documentation**: http://localhost:8000/docs
+- **API Health Check**: http://localhost:8000
+
+## 📋 Complete User Flow
+
+### Phase 1: Information Collection
+1. **User starts conversation** with greeting
+2. **Chat Agent activates** to collect:
+   - Medical condition/symptoms
+   - ZIP code for location
+   - Phone number for contact
+   - Insurance information
+
+### Phase 2: Hospital Discovery & Appointment Processing
+3. **Automatic hospital search** using Exa.ai
+4. **Background appointment processing** with Playwright
+5. **Data structure extraction** with confidence scoring
+
+### Phase 3: Medical Reasoning & Support
+6. **Reasoning Agent analysis** of symptoms and conditions
+7. **Comfort guidance provision** (2 rounds of support)
+8. **Journey assistance** with practical tips
+
+## 🛠️ Tech Stack
+
+### Frontend
 - **Framework**: Next.js 14 with App Router
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
@@ -22,82 +150,299 @@ A modern, responsive chatbot interface inspired by ChatGPT UI, built specificall
 - **Icons**: Lucide React
 - **State Management**: React hooks and context
 - **Theme**: next-themes for dark/light mode
-- **PWA**: Progressive Web App capabilities
 
-## Getting Started
+### Backend
+- **API Framework**: FastAPI
+- **AI Framework**: CrewAI with custom Gemini LLM
+- **Language Model**: Google Gemini 2.5 Flash
+- **Browser Automation**: Playwright
+- **Search Engine**: Exa.ai API
+- **Monitoring**: W&B Weave
+- **Session Storage**: In-memory (production: Redis/DB)
 
-### Prerequisites
+### Development Tools
+- **Package Management**: npm, conda/pip
+- **Code Quality**: ESLint, Prettier
+- **Type Checking**: TypeScript
+- **API Documentation**: FastAPI auto-docs
 
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <your-repo-url>
-   cd PatientHero
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-### Building for Production
-
-```bash
-npm run build
-npm start
-```
-
-## Quick Start with Med42-8B
-
-Deploy the Med42-8B model on Fly.io for production-ready medical AI:
-
-### 1. Deploy Med42-8B to Fly.io
-```bash
-# Clone the repository
-git clone <your-repo-url>
-cd PatientHero
-
-# Install dependencies
-npm install
-
-# Deploy the Med42-8B model
-cd fly-llm-server
-./deploy.sh
-
-# Configure the frontend
-cd ..
-cp .env.example .env.local
-# Edit .env.local with your Fly.io URL
-```
-
-### 2. Start the Application
-```bash
-# Start the development server
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) and start chatting with your Med42-8B medical AI!
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 PatientHero/
 ├── app/                    # Next.js 14 app directory
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Main chat page
+│   ├── globals.css        # Global styles and themes
+│   ├── layout.tsx         # Root layout with providers
+│   └── page.tsx           # Main chat interface
 ├── components/            # React components
+│   ├── ui/               # Reusable UI primitives
+│   ├── providers/        # Context providers
+│   ├── medical-consultation.tsx  # Main chat component
+│   ├── appointment-flow.tsx      # Appointment processing UI
+│   ├── sidebar.tsx       # Navigation sidebar
+│   └── theme-toggle.tsx  # Dark/light mode toggle
+├── lib/                  # Utility functions and services
+│   ├── ai-service.ts     # API communication layer
+│   ├── utils.ts          # Helper functions
+│   └── hooks.ts          # Custom React hooks
+├── crewai_agents/        # AI agent system
+│   ├── main.py           # Core CrewAI implementation
+│   ├── exa_helper.py     # Hospital search integration
+│   ├── requirements.txt  # Python dependencies
+│   ├── environment.yml   # Conda environment
+│   └── setup.sh          # Automated setup script
+├── api_server.py         # FastAPI backend server
+├── process_clinics_parallel.py  # Appointment processing
+├── docs/                 # Documentation
+│   ├── DEPLOYMENT_GUIDE.md
+│   ├── PROMPT_SYSTEM.md
+│   └── WANDB_SUMMARY.md
+└── scripts/              # Utility scripts
+```
+
+## 🔧 API Endpoints
+
+### Core Chat API
+- `POST /api/chat` - Process user input through AI agents
+- `GET /api/status/{session_id}` - Get session status and patient data
+
+### Appointment System
+- `POST /api/complete-flow/{session_id}` - Full medical flow processing
+- `GET /api/appointments/{session_id}` - Get processed appointment data
+- `POST /api/appointments/process` - Manual appointment processing
+
+### Patient Support
+- `GET /api/comfort-guidance/{session_id}` - Comfort guidance rounds
+- `POST /api/sessions/{session_id}/end` - End patient session
+
+### Monitoring
+- `GET /api/sessions` - List active sessions (debug)
+- `GET /` - API health check
+
+## 💾 Data Models
+
+### Patient Data Structure
+```typescript
+interface PatientData {
+  session_id: string;
+  timestamp: string;
+  medical_condition?: string;
+  zip_code?: string;
+  phone_number?: string;
+  insurance?: string;
+  symptoms?: string[];
+  reasoning_analysis?: string;
+  conversation_history: ConversationEntry[];
+}
+```
+
+### Appointment Data Structure
+```typescript
+interface AppointmentData {
+  hospital_name: string;
+  website: string;
+  institution_type: string;
+  accepts_user_insurance: string;
+  appointment_availability: {
+    available_slots: AppointmentSlot[];
+    total_slots_found: number;
+    next_available: string;
+    booking_method: string;
+  };
+}
+```
+
+## 🔄 Agent Workflows
+
+### 1. Chat Agent (Information Collector)
+- **Role**: Friendly medical intake specialist
+- **Goal**: Collect essential patient information naturally
+- **Behavior**: One question at a time, empathetic responses
+- **Transition**: Switches to Reasoning Agent when basic info complete
+
+### 2. Reasoning Agent (Medical Analysis)
+- **Role**: Medical reasoning specialist
+- **Goal**: Analyze symptoms and provide preliminary guidance
+- **Behavior**: Evidence-based analysis, follow-up questions
+- **Output**: Detailed symptom analysis and medical reasoning
+
+### 3. Extraction Agent (Data Structuring)
+- **Role**: Data extraction specialist
+- **Goal**: Structure conversation data into JSON format
+- **Behavior**: Intelligent parsing, confidence scoring
+- **Output**: Structured patient data with metadata
+
+## 🏥 Hospital Processing
+
+### Exa.ai Integration
+- **Search scope**: .org and .gov domains only
+- **Filters**: Location-based, insurance compatibility
+- **Output**: Structured hospital data with contact information
+
+### Appointment Processing
+- **Method**: Parallel Playwright browser automation
+- **Target**: Hospital booking pages and forms
+- **Extraction**: Available time slots, booking methods
+- **Performance**: Concurrent processing for speed
+
+### Data Cleaning
+- **Standardization**: Consistent appointment slot formats
+- **Validation**: Remove invalid or malformed data
+- **Enhancement**: Add booking methods and availability status
+
+## 📊 Monitoring & Analytics
+
+### W&B Weave Integration
+- **Agent Interactions**: Every AI model call traced
+- **Session Tracking**: Complete conversation flows
+- **Performance Metrics**: Response times, success rates
+- **Error Tracking**: Detailed error logs and context
+
+### Key Metrics
+- **Information Collection Rate**: Percentage of complete patient profiles
+- **Agent Transition Success**: Chat -> Reasoning -> Extraction flow
+- **Appointment Processing**: Success rate of hospital data extraction
+- **User Engagement**: Session duration and interaction quality
+
+## 🔒 Security & Privacy
+
+### Data Protection
+- **Session Isolation**: Each session independent and secure
+- **Temporary Storage**: Patient data not permanently stored
+- **API Security**: CORS protection and request validation
+- **Privacy**: No data sharing with external services (except AI APIs)
+
+### Safety Measures
+- **Content Filtering**: Gemini safety settings configured
+- **Error Boundaries**: Graceful handling of API failures
+- **Input Validation**: Sanitization of user inputs
+- **Rate Limiting**: Protection against abuse
+
+## 🚀 Deployment Options
+
+### Development (Local)
+```bash
+# Start both services locally
+python api_server.py &
+npm run dev
+```
+
+### Production (Recommended)
+- **Frontend**: Vercel, Netlify, or similar
+- **Backend**: Railway, Render, or VPS
+- **Database**: PostgreSQL or MongoDB for persistence
+- **Monitoring**: W&B dashboard for production monitoring
+
+### Docker Deployment
+```bash
+# Build and run with Docker
+docker build -t patienthero .
+docker run -p 3000:3000 -p 8000:8000 patienthero
+```
+
+## 🧪 Testing
+
+### Frontend Testing
+```bash
+npm run test          # Run test suite
+npm run test:watch    # Watch mode
+npm run lint          # Code quality check
+```
+
+### Backend Testing
+```bash
+cd crewai_agents
+python test_complete_flow.py  # Test complete AI flow
+python -m pytest tests/       # Run unit tests
+```
+
+### API Testing
+```bash
+# Test core endpoints
+curl -X POST http://localhost:8000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"user_input": "Hi, I have a fever", "session_id": "test-123"}'
+
+curl -X POST http://localhost:8000/api/complete-flow/test-123
+```
+
+## 🤝 Contributing
+
+### Development Setup
+1. Fork the repository
+2. Create a feature branch
+3. Set up development environment
+4. Make your changes
+5. Add tests if applicable
+6. Submit a pull request
+
+### Code Style
+- **Frontend**: ESLint + Prettier configuration
+- **Backend**: PEP 8 Python style guide
+- **Commits**: Conventional commit messages
+- **Documentation**: Update README for significant changes
+
+## 📞 Healthcare Disclaimer
+
+**Important**: This application is designed for educational and demonstration purposes. It should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare providers for medical concerns.
+
+## 🔮 Future Enhancements
+
+### Planned Features
+- [ ] **User Authentication**: Persistent user accounts
+- [ ] **Database Integration**: Long-term data storage
+- [ ] **Real Appointment Booking**: Direct integration with hospital systems
+- [ ] **Telemedicine**: Video consultation capabilities
+- [ ] **Multi-language**: Support for multiple languages
+- [ ] **Mobile App**: Native iOS/Android applications
+
+### AI Improvements
+- [ ] **Memory Enhancement**: Long-term conversation memory
+- [ ] **Specialized Models**: Domain-specific medical AI models
+- [ ] **Voice Interface**: Speech-to-text and text-to-speech
+- [ ] **Predictive Analytics**: Early symptom detection
+- [ ] **Personalization**: Adaptive responses based on user history
+
+### Integration Opportunities
+- [ ] **EHR Systems**: Electronic health record integration
+- [ ] **Insurance APIs**: Real-time coverage verification
+- [ ] **Pharmacy Systems**: Prescription management
+- [ ] **Wearable Devices**: Health data integration
+- [ ] **Emergency Services**: Direct 911/emergency routing
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **CrewAI**: Multi-agent AI framework
+- **Google Gemini**: Advanced language model capabilities
+- **Exa.ai**: Intelligent web search for healthcare
+- **W&B Weave**: AI application monitoring and tracing
+- **Radix UI**: Accessible component primitives
+- **Playwright**: Reliable browser automation
+
+---
+
+## 📚 Additional Documentation
+
+- [Deployment Guide](docs/DEPLOYMENT_GUIDE.md) - Detailed deployment instructions
+- [Prompt System Documentation](docs/PROMPT_SYSTEM.md) - AI agent prompt engineering
+- [W&B Integration Guide](docs/WANDB_SUMMARY.md) - Monitoring and analytics setup
+- [API Documentation](http://localhost:8000/docs) - Interactive API documentation
+
+## 🆘 Support
+
+For technical support, bug reports, or feature requests:
+1. Check existing [Issues](../../issues)
+2. Create a new issue with detailed description
+3. Include environment details and error logs
+4. Tag with appropriate labels
+
+---
+
+**Built with ❤️ for better healthcare accessibility**
 │   ├── ui/               # Reusable UI components
 │   ├── providers/        # Context providers
 │   ├── sidebar.tsx       # Chat sidebar

@@ -7,8 +7,9 @@ import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { Loader2, Send, User, Bot, Heart, Clock } from 'lucide-react'
+import { Loader2, Send, User, Bot, Heart, Clock, Calendar, MapPin } from 'lucide-react'
 import { toast } from 'sonner'
+import AppointmentFlow from '@/components/appointment-flow'
 
 interface Message {
   id: string
@@ -52,6 +53,7 @@ export default function PatientHeroChat() {
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [patientData, setPatientData] = useState<PatientData | null>(null)
   const [nextStep, setNextStep] = useState('continue_basic_info')
+  const [showAppointmentFlow, setShowAppointmentFlow] = useState(false)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
 
   // Fix hydration issues
@@ -81,7 +83,7 @@ export default function PatientHeroChat() {
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch('http://localhost:8000/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -117,9 +119,18 @@ export default function PatientHeroChat() {
 
       setMessages(prev => [...prev, assistantMessage])
 
-      // Show progress notifications
+      // Show progress notifications and check for flow completion
       if (chatResponse.next_step === 'reasoning_analysis') {
         toast.success('Basic information collected! Moving to symptom analysis.')
+      } else if (chatResponse.next_step === 'basic_info_complete' || 
+                 (patientData?.medical_condition && patientData?.zip_code && patientData?.phone_number)) {
+        // Trigger appointment flow when basic info is complete
+        toast.success('Patient information complete! Ready to find appointments.', {
+          action: {
+            label: 'Find Appointments',
+            onClick: () => setShowAppointmentFlow(true)
+          }
+        })
       }
 
     } catch (error) {
@@ -225,14 +236,47 @@ export default function PatientHeroChat() {
                     <Clock className="h-4 w-4" />
                     <span>Available 24/7</span>
                   </div>
+                  
+                  {/* Appointment Flow Trigger */}
+                  {patientData?.medical_condition && patientData?.zip_code && !showAppointmentFlow && (
+                    <Button 
+                      onClick={() => setShowAppointmentFlow(true)}
+                      className="w-full mt-3 bg-blue-600 hover:bg-blue-700"
+                      size="sm"
+                    >
+                      <Calendar className="h-4 w-4 mr-2" />
+                      Find Appointments
+                    </Button>
+                  )}
+                  
+                  {showAppointmentFlow && (
+                    <Button 
+                      onClick={() => setShowAppointmentFlow(false)}
+                      variant="outline"
+                      className="w-full mt-3"
+                      size="sm"
+                    >
+                      <MapPin className="h-4 w-4 mr-2" />
+                      Back to Chat
+                    </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>
           </div>
 
-          {/* Chat Interface */}
+          {/* Chat Interface or Appointment Flow */}
           <div className="lg:col-span-3">
-            <Card className="h-[600px] flex flex-col">
+            {showAppointmentFlow ? (
+              <AppointmentFlow 
+                sessionId={sessionId || ''} 
+                onFlowComplete={() => {
+                  toast.success('Appointment flow completed!')
+                  setShowAppointmentFlow(false)
+                }}
+              />
+            ) : (
+              <Card className="h-[600px] flex flex-col">
               <CardHeader>
                 <CardTitle>Medical Consultation Chat</CardTitle>
                 <div className="flex items-center gap-2">
@@ -329,6 +373,7 @@ export default function PatientHeroChat() {
                 </div>
               </CardContent>
             </Card>
+            )}
           </div>
         </div>
       </div>

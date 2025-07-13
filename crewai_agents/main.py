@@ -1,6 +1,7 @@
 import os
 import json
 import uuid
+import asyncio
 from datetime import datetime
 from typing import Dict, List, Optional, Any, Union
 from dataclasses import dataclass, asdict
@@ -120,7 +121,7 @@ class PatientHeroCrewAI:
             project=os.getenv("WANDB_PROJECT", "patienthero-crewai"),
             entity=os.getenv("WANDB_ENTITY"),
             config={
-                "model": "gemini-2.0-flash",
+                "model": "gemini-2.5-flash",
                 "session_id": self.monitor.session_id,
                 "inference_provider": "google-gemini"
             }
@@ -128,7 +129,7 @@ class PatientHeroCrewAI:
         
         # Initialize custom Gemini LLM for CrewAI
         self.llm = GeminiLLM(
-            model="gemini-2.0-flash",
+            model="gemini-2.5-flash",
             api_key=os.getenv("GEMINI_API_KEY"),
             temperature=0.7
         )
@@ -160,6 +161,51 @@ class PatientHeroCrewAI:
             
             # Optional: Store the processed result for further use
             self.processed_patient_data = processed_result
+            
+            # Automatically trigger appointment processing after hospital search
+            print(f"🔄 Triggering appointment processing for found hospitals...")
+            try:
+                import sys
+                import os
+                
+                # Add current directory to path for import
+                current_dir = os.path.dirname(os.path.dirname(__file__))
+                if current_dir not in sys.path:
+                    sys.path.append(current_dir)
+                
+                # Import and run appointment processing
+                from process_clinics_parallel import process_medical_institutions_for_api
+                
+                # Use asyncio.create_task instead of run_until_complete to avoid loop conflict
+                try:
+                    # Try to get existing loop
+                    current_loop = asyncio.get_running_loop()
+                    # Schedule the appointment processing as a background task
+                    task = current_loop.create_task(process_medical_institutions_for_api())
+                    print(f"📅 Appointment processing started in background...")
+                    # Store the task for later retrieval
+                    self.appointment_task = task
+                except RuntimeError:
+                    # No loop running, create new one
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+                    appointment_results = loop.run_until_complete(process_medical_institutions_for_api())
+                    
+                    if appointment_results:
+                        print(f"✅ Successfully processed {len(appointment_results)} hospitals with appointment data")
+                        # Store appointment results for later use
+                        self.appointment_results = appointment_results
+                        
+                        # Save appointment results to a separate file for frontend access
+                        with open('processed_medical_data_with_appointments.json', 'w') as f:
+                            json.dump(appointment_results, f, indent=2)
+                        print(f"💾 Appointment data saved to processed_medical_data_with_appointments.json")
+                    else:
+                        print(f"⚠️ No appointment data found during processing")
+                        
+            except Exception as appointment_error:
+                print(f"⚠️ Error during appointment processing: {appointment_error}")
+                # Continue with normal flow even if appointment processing fails
             
             return processed_result
             
@@ -248,6 +294,7 @@ class PatientHeroCrewAI:
             3. Provide preliminary medical reasoning (while emphasizing need for professional consultation)
             4. Suggest what additional information might be helpful
             
+            If this is the initial reasoning analysis (user_input contains "Let's analyze your condition"), provide a comprehensive initial assessment and ask specific questions about their symptoms.
             If the patient mentions new symptoms, acknowledge them and dive deeper into those specific symptoms.
             Be conversational and empathetic while gathering more detailed symptom information.
             
@@ -434,6 +481,17 @@ class PatientHeroCrewAI:
             print(f"\n✅ Basic patient information collection complete!")
             print(f"📋 Collected: Medical condition, ZIP code, phone number, and insurance")
             print(f"🔄 Switching to Reasoning Agent for symptom analysis...")
+            
+            # Automatically provide a reasoning response to continue the flow
+            reasoning_response = self._analyze_symptoms("Let's analyze your condition in more detail")
+            
+            # Update the response to include reasoning analysis
+            response.update({
+                "agent": "reasoning_agent",
+                "response": f"{str(result)}\n\n{reasoning_response['response']}",
+                "next_step": "continue_symptom_analysis",
+                "transition": "basic_info_to_reasoning"
+            })
             
             # Run extraction agent after basic info is complete
             try:
@@ -797,7 +855,7 @@ class PatientHeroCrewAI:
         """Trace LLM calls with Weave using Google Gemini API"""
         try:
             # Initialize Gemini model
-            model = genai.GenerativeModel('gemini-2.0-flash')
+            model = genai.GenerativeModel('gemini-2.5-flash')
             
             # Convert messages to Gemini format
             if messages and messages[0].get("role") == "system":
@@ -811,6 +869,11 @@ class PatientHeroCrewAI:
                 prompt = ' '.join(user_msgs)
             
             response = model.generate_content(prompt)
+            
+            # Check if response was blocked or empty
+            if not response.text or response.text.strip() == "":
+                return "I understand you're seeking medical assistance. I'm here to help guide you through this process. Please provide more details about your situation."
+            
             return response.text
             
         except Exception as e:
@@ -863,8 +926,18 @@ class GeminiLLM(BaseLLM):
                 generation_config=genai.types.GenerationConfig(
                     temperature=self.temperature,
                     max_output_tokens=1500,
-                )
+                ),
+                safety_settings=[
+                    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+                    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+                    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+                    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
+                ]
             )
+            
+            # Check if response was blocked or empty
+            if not response.text or response.text.strip() == "":
+                return "I understand you're seeking medical guidance. Let me provide some general supportive information while you prepare for your healthcare visit. Please consult with medical professionals for specific advice about your condition."
             
             return response.text
             
@@ -887,7 +960,7 @@ if __name__ == "__main__":
     
     print("PatientHero CrewAI System with Google Gemini API")
     print("==============================================")
-    print("🤖 Model: gemini-2.0-flash (via Google AI)")
+    print("🤖 Model: gemini-2.5-flash (via Google AI)")
     print("📊 Monitoring: Wandb Weave tracing enabled")
     print("")
     print("This system includes three specialized agents:")

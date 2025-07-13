@@ -22,10 +22,10 @@ load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Constants
-INPUT_FILE = 'test_clinic_list.json'
-OUTPUT_FILE = 'test_clinic_list_with_appts.json'
-MAX_CONCURRENT_TASKS = 5  # Limit concurrent browser instances to avoid rate limiting
-REQUEST_TIMEOUT = 60000  # 60 seconds timeout for each page
+INPUT_FILE = 'processed_medical_data.json'
+OUTPUT_FILE = 'processed_medical_data_with_appointments.json'
+MAX_CONCURRENT_TASKS = 3  # Limit concurrent browser instances to avoid rate limiting
+REQUEST_TIMEOUT = 30000  # 30 seconds timeout for each page
 
 # Global browser instance to be shared across tasks
 browser = None
@@ -218,57 +218,127 @@ async def process_clinics_parallel(clinics: List[Dict[str, Any]], max_concurrent
         await playwright.stop()
 
 
-def load_clinics() -> Dict[str, List[Dict[str, Any]]]:
-    """Load clinic data from the input JSON file."""
+def load_clinics() -> List[Dict[str, Any]]:
+    """Load clinic data from the processed medical data JSON file."""
     try:
         with open(INPUT_FILE, 'r') as f:
-            return json.load(f)
+            data = json.load(f)
+            # Convert the medical data format to clinic format
+            clinics = []
+            for item in data:
+                clinic = {
+                    'name': item.get('hospital_name', ''),
+                    'website': item.get('link', ''),
+                    'institution_type': item.get('institution_type', ''),
+                    'accepts_user_insurance': item.get('accepts_user_insurance', 'unknown'),
+                    'original_data': item
+                }
+                clinics.append(clinic)
+            return clinics
     except Exception as e:
         print(f"Error loading clinics: {str(e)}")
-        return {}
+        return []
 
 
-def save_results(clinics_data: Dict[str, List[Dict[str, Any]]]) -> None:
+def save_results(processed_clinics: List[Dict[str, Any]]) -> None:
     """Save the processed results to the output JSON file."""
     try:
         with open(OUTPUT_FILE, 'w') as f:
-            json.dump(clinics_data, f, indent=2)
+            json.dump(processed_clinics, f, indent=2)
         print(f"\nResults saved to {OUTPUT_FILE}")
     except Exception as e:
         print(f"Error saving results: {str(e)}")
+
+
+def clean_appointment_data(processed_clinics: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Clean and standardize the appointment data extracted from clinic websites."""
+    cleaned_clinics = []
+    
+    for clinic in processed_clinics:
+        cleaned_clinic = {
+            'hospital_name': clinic.get('name', ''),
+            'website': clinic.get('website', ''),
+            'institution_type': clinic.get('institution_type', ''),
+            'accepts_user_insurance': clinic.get('accepts_user_insurance', 'unknown'),
+            'processing_status': clinic.get('status', 'unknown'),
+            'last_checked': clinic.get('last_checked', ''),
+            'appointment_availability': {
+                'available_slots': [],
+                'booking_method': 'unknown',
+                'next_available': None,
+                'total_slots_found': 0
+            }
+        }
+        
+        # Process appointment slots
+        slots = clinic.get('appointment_slots', [])
+        cleaned_slots = []
+        
+        for slot in slots:
+            if isinstance(slot, dict) and slot.get('time'):
+                cleaned_slot = {
+                    'time': slot['time'],
+                    'source': slot.get('source', 'website'),
+                    'booking_available': True,
+                    'slot_type': 'appointment'
+                }
+                cleaned_slots.append(cleaned_slot)
+        
+        cleaned_clinic['appointment_availability']['available_slots'] = cleaned_slots
+        cleaned_clinic['appointment_availability']['total_slots_found'] = len(cleaned_slots)
+        
+        if cleaned_slots:
+            cleaned_clinic['appointment_availability']['next_available'] = cleaned_slots[0]['time']
+            cleaned_clinic['appointment_availability']['booking_method'] = 'online'
+        
+        # Add error information if present
+        if clinic.get('error'):
+            cleaned_clinic['processing_error'] = clinic['error']
+        
+        cleaned_clinics.append(cleaned_clinic)
+    
+    return cleaned_clinics
 
 
 async def main():
     """Main function to run the script."""
     start_time = time.time()
     
-    # Load clinic data
+    # Load clinic data from processed medical data
     print(f"Loading clinics from {INPUT_FILE}...")
-    clinics_data = load_clinics()
+    clinics = load_clinics()
     
-    if not clinics_data:
+    if not clinics:
         print("No clinic data found or error loading file.")
-        return
+        return []
     
-    # Process each location group in the data
-    for location, clinics in clinics_data.items():
-        if location == 'metadata' or not isinstance(clinics, list):
-            continue
-            
-        print(f"\nProcessing {len(clinics)} clinics in {location}...")
-        
-        # Process clinics in parallel
-        processed_clinics = await process_clinics_parallel(clinics)
-        
-        # Update the data with processed results
-        clinics_data[location] = processed_clinics
-        
-        # Save progress after each location
-        save_results(clinics_data)
+    print(f"\nProcessing {len(clinics)} medical institutions...")
+    
+    # Process clinics in parallel
+    processed_clinics = await process_clinics_parallel(clinics)
+    
+    # Clean the appointment data
+    print("\nCleaning appointment data...")
+    cleaned_clinics = clean_appointment_data(processed_clinics)
+    
+    # Save results
+    save_results(cleaned_clinics)
     
     # Calculate and print total time
     total_time = time.time() - start_time
     print(f"\nCompleted processing in {total_time:.2f} seconds")
+    
+    # Return cleaned results for API integration
+    return cleaned_clinics
+
+
+async def process_medical_institutions_for_api() -> List[Dict[str, Any]]:
+    """Entry point for API calls to process medical institutions and return appointment data."""
+    try:
+        return await main()
+    except Exception as e:
+        print(f"Error in process_medical_institutions_for_api: {str(e)}")
+        return []
 
 
 if __name__ == "__main__":
