@@ -1,0 +1,83 @@
+{
+  "clinics_houston_77065": [
+    {
+      "name": "MD Medical Group - West Houston",
+      "address": "11840 FM 1960 Road West, Houston, TX 77065",
+      "telephone": "832-912-7044",
+      "appointments_available": [],
+      "last_updated": "2025-07-13T13:03:57.326988"
+    },
+    {
+      "name": "Renal Clinic of Houston",
+      "address": "10726 Huffmeister Rd, Suite 250, Houston, TX 77065",
+      "telephone": "281-890-9944",
+      "appointments_available": [],
+      "last_updated": "2025-07-13T13:03:58.658969"
+    },
+    {
+      "name": "Kelsey-Seybold FM 1960 Clinic",
+      "address": "13114 FM 1960 West, Houston, TX 77065",
+      "telephone": "713-442-8800",
+      "appointments_available": [],
+      "last_updated": "2025-07-13T13:03:59.045046"
+    },
+    {
+      "name": "Oak Street Health - Cypress",
+      "address": "11600 Farm to Market 1960 Rd W, Houston, TX 77065",
+      "telephone": "888-812-1183",
+      "appointments_available": [
+        {
+          "date": "2025-08-08",
+          "time": "9:00 AM"
+        },
+        {
+          "date": "2025-08-08",
+          "time": "2:20 PM"
+        },
+        {
+          "date": "2025-08-11",
+          "time": "9:00 AM"
+        },
+        {
+          "date": "2025-08-01",
+          "time": "8:00 AM"
+        },
+        {
+          "date": "2025-08-04",
+          "time": "9:00 AM"
+        },
+        {
+          "date": "2025-08-06",
+          "time": "8:00 AM"
+        },
+        {
+          "date": "2025-08-06",
+          "time": "8:40 AM"
+        },
+        {
+          "date": "2025-08-06",
+          "time": "10:00 AM"
+        },
+        {
+          "date": "2025-08-11",
+          "time": "8:00 AM"
+        }
+      ],
+      "last_updated": "2025-07-13T13:04:06.825978"
+    },
+    {
+      "name": "Convenient Urgent Care",
+      "address": "10311 N Eldridge Pkwy, Houston, TX 77065",
+      "telephone": "Not specified",
+      "appointments_available": [],
+      "last_updated": "2025-07-13T13:04:07.802548"
+    }
+  ],
+  "metadata": {
+    "zip_code": "77065",
+    "city": "Houston",
+    "state": "Texas",
+    "search_date": "July 2025",
+    "total_clinics": 5
+  }
+}
