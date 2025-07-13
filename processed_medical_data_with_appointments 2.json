@@ -1,0 +1,209 @@
+[
+  {
+    "hospital_name": "UCSF Health",
+    "website": "https://www.ucsfhealth.org/",
+    "institution_type": "Healthcare Facility",
+    "accepts_user_insurance": "unknown",
+    "processing_status": "success",
+    "last_checked": "2025-07-13T14:09:42.094933",
+    "appointment_availability": {
+      "available_slots": [
+        {
+          "time": "400 P",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        }
+      ],
+      "booking_method": "online",
+      "next_available": "400 P",
+      "total_slots_found": 1
+    }
+  },
+  {
+    "hospital_name": "CPMC Van Ness Campus",
+    "website": "https://www.sutterhealth.org/find-location/facility/cpmc-van-ness-campus",
+    "institution_type": "Government Facility",
+    "accepts_user_insurance": "unknown",
+    "processing_status": "success",
+    "last_checked": "2025-07-13T14:09:42.196704",
+    "appointment_availability": {
+      "available_slots": [
+        {
+          "time": "383 p",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "8a",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "1a",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "7 P",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        }
+      ],
+      "booking_method": "online",
+      "next_available": "383 p",
+      "total_slots_found": 4
+    }
+  },
+  {
+    "hospital_name": "UCSF Medical Center Ranks Among Nation's Best for 2024-25",
+    "website": "https://www.ucsfhealth.org/lp/us-news",
+    "institution_type": "Medical Center",
+    "accepts_user_insurance": "unknown",
+    "processing_status": "success",
+    "last_checked": "2025-07-13T14:09:42.114643",
+    "appointment_availability": {
+      "available_slots": [
+        {
+          "time": "1 A",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "10 p",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "17 a",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "4 P",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "7 P",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        }
+      ],
+      "booking_method": "online",
+      "next_available": "1 A",
+      "total_slots_found": 5
+    }
+  },
+  {
+    "hospital_name": "UCSF Medical Center - Wikipedia",
+    "website": "https://en.wikipedia.org/wiki/UCSF_Medical_Center",
+    "institution_type": "Medical Center",
+    "accepts_user_insurance": "unknown",
+    "processing_status": "success",
+    "last_checked": "2025-07-13T14:09:45.186138",
+    "appointment_availability": {
+      "available_slots": [
+        {
+          "time": "1907 a",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "2015 a",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "3 a",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "1897 a",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "13 a",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "8\nP",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "7\nP",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "1907A",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        }
+      ],
+      "booking_method": "online",
+      "next_available": "1907 a",
+      "total_slots_found": 8
+    }
+  },
+  {
+    "hospital_name": "San Francisco VA Medical Center | Veterans Affairs - VA.gov",
+    "website": "https://www.va.gov/san-francisco-health-care/locations/san-francisco-va-medical-center/",
+    "institution_type": "Medical Center",
+    "accepts_user_insurance": "unknown",
+    "processing_status": "success",
+    "last_checked": "2025-07-13T14:09:48.018912",
+    "appointment_availability": {
+      "available_slots": [
+        {
+          "time": "3:00 p",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "10:00 p",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "1545\nP",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        },
+        {
+          "time": "7\nP",
+          "source": "text_extraction",
+          "booking_available": true,
+          "slot_type": "appointment"
+        }
+      ],
+      "booking_method": "online",
+      "next_available": "3:00 p",
+      "total_slots_found": 4
+    }
+  }
+]
