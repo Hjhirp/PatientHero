@@ -1,0 +1,56 @@
+[
+  {
+    "time": "9:00 AM",
+    "date": "2023-08-08",
+    "type": "New Patient Visit",
+    "status": "available"
+  },
+  {
+    "time": "2:20 PM",
+    "date": "2023-08-08",
+    "type": "New Patient Visit",
+    "status": "available"
+  },
+  {
+    "time": "9:00 AM",
+    "date": "2023-08-11",
+    "type": "New Patient Visit",
+    "status": "available"
+  },
+  {
+    "time": "8:00 AM",
+    "date": "2023-08-01",
+    "type": "New Patient Visit",
+    "status": "available"
+  },
+  {
+    "time": "9:00 AM",
+    "date": "2023-08-04",
+    "type": "New Patient Visit",
+    "status": "available"
+  },
+  {
+    "time": "8:00 AM",
+    "date": "2023-08-06",
+    "type": "New Patient Visit",
+    "status": "available"
+  },
+  {
+    "time": "8:40 AM",
+    "date": "2023-08-06",
+    "type": "New Patient Visit",
+    "status": "available"
+  },
+  {
+    "time": "10:00 AM",
+    "date": "2023-08-06",
+    "type": "New Patient Visit",
+    "status": "available"
+  },
+  {
+    "time": "8:00 AM",
+    "date": "2023-08-11",
+    "type": "New Patient Visit",
+    "status": "available"
+  }
+]
