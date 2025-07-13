@@ -1,0 +1,32 @@
+[
+  {
+    "hospital_name": "Cedars-Sinai Medical Center",
+    "link": "https://www.cedars-sinai.org/locations/cedars-sinai-main-campus-89.html",
+    "institution_type": "Medical Center",
+    "accepts_user_insurance": "unknown"
+  },
+  {
+    "hospital_name": "Cedars-Sinai | Cedars-Sinai",
+    "link": "https://www.cedars-sinai.org/home.html",
+    "institution_type": "Healthcare Facility",
+    "accepts_user_insurance": "unknown"
+  },
+  {
+    "hospital_name": "Ronald Reagan UCLA Medical Center, Los Angeles Hospital",
+    "link": "https://www.uclahealth.org/hospitals/reagan",
+    "institution_type": "Hospital",
+    "accepts_user_insurance": "unknown"
+  },
+  {
+    "hospital_name": "Santa Monica Medical Center",
+    "link": "https://www.uclahealth.org/hospitals/santa-monica",
+    "institution_type": "Medical Center",
+    "accepts_user_insurance": "unknown"
+  },
+  {
+    "hospital_name": "Cedars-Sinai Urgent Care - Beverly Hills",
+    "link": "https://www.cedars-sinai.org/locations/urgent-care-beverly-hills-170.html",
+    "institution_type": "Urgent Care",
+    "accepts_user_insurance": "unknown"
+  }
+]

@@ -1,0 +1,11 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <rect fill="#10b981" width="256" height="256" rx="32"/>
+  <g fill="#ffffff">
+    <!-- Medical cross -->
+    <rect x="108" y="64" width="40" height="128" rx="4"/>
+    <rect x="64" y="108" width="128" height="40" rx="4"/>
+    <!-- Chat bubble -->
+    <circle cx="180" cy="180" r="24" opacity="0.8"/>
+    <path d="M168 192 l-8 8 l8 8 Z" opacity="0.8"/>
+  </g>
+</svg>
