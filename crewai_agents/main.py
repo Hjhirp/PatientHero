@@ -6,10 +6,7 @@ from typing import Dict, List, Optional, Any, Union
 from dataclasses import dataclass, asdict
 from dotenv import load_dotenv
 
-import wandb
-
-wandb.login()
-
+# Only import weave here, wandb will be initialized by the API server
 import weave
 import google.generativeai as genai
 import requests
@@ -26,7 +23,7 @@ load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Set the Weave team and project for tracing
-weave.init(os.getenv("WANDB_ENTITY", "mugiwara_luffy") + "/" + os.getenv("WANDB_PROJECT", "patienthero-crewai"))
+weave.init("patienthero-crewai")
 
 @dataclass
 class PatientData:
@@ -76,11 +73,17 @@ class WandbWeaveMonitor:
             "metadata": metadata or {}
         }
         
-        # Log to Wandb
-        wandb.log({
-            f"{agent_name}_interaction": interaction_data,
-            "timestamp": datetime.now().timestamp()
-        })
+        # Log to Wandb if available (will be handled by API server)
+        try:
+            import wandb
+            if wandb.run:
+                wandb.log({
+                    f"{agent_name}_interaction": interaction_data,
+                    "timestamp": datetime.now().timestamp()
+                })
+        except (ImportError, AttributeError):
+            # wandb not available or not initialized
+            pass
         
         return interaction_data
     
@@ -95,10 +98,16 @@ class WandbWeaveMonitor:
             "completion_status": patient_data.is_basic_info_complete()
         }
         
-        wandb.log({
-            "crew_execution": execution_data,
-            "patient_data_complete": patient_data.is_basic_info_complete()
-        })
+        try:
+            import wandb
+            if wandb.run:
+                wandb.log({
+                    "crew_execution": execution_data,
+                    "patient_data_complete": patient_data.is_basic_info_complete()
+                })
+        except (ImportError, AttributeError):
+            # wandb not available or not initialized
+            pass
         
         return execution_data
 
@@ -115,16 +124,8 @@ class PatientHeroCrewAI:
         # Initialize ExaHelper for direct processing
         self.exa_helper = ExaHelper()
         
-        # Initialize Wandb run
-        wandb.init(
-            project=os.getenv("WANDB_PROJECT", "patienthero-crewai"),
-            entity=os.getenv("WANDB_ENTITY"),
-            config={
-                "model": "gemini-2.0-flash",
-                "session_id": self.monitor.session_id,
-                "inference_provider": "google-gemini"
-            }
-        )
+        # Don't initialize Wandb here - let the API server handle it
+        # This prevents conflicts with multiple wandb.init() calls
         
         # Initialize custom Gemini LLM for CrewAI
         self.llm = GeminiLLM(
@@ -907,7 +908,12 @@ if __name__ == "__main__":
         
         if user_input.lower() == 'quit':
             print("Session ended. Patient data has been saved.")
-            wandb.finish()
+            try:
+                import wandb
+                if wandb.run:
+                    wandb.finish()
+            except (ImportError, AttributeError):
+                pass
             break
         
         if user_input.lower() == 'status':

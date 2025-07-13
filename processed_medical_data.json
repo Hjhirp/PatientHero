@@ -1,32 +1,32 @@
 [
   {
-    "hospital_name": "[PDF] WCMSA Reference Guide v. 4.3 April 2025 Release",
-    "link": "https://www.cms.gov/files/document/wcmsa-reference-guide-version-43.pdf",
-    "institution_type": "Government Facility",
-    "accepts_user_insurance": "unknown"
-  },
-  {
-    "hospital_name": "RETURNING TO THE COMMUNITY: HEALTH CARE AFTER INCARCERATION - A Guide for Health Care Reentry (English)",
-    "link": "https://www.cms.gov/files/document/returning-community-health-care-after-incarceration-guide-health-care-reentry-english.pdf",
-    "institution_type": "Government Facility",
-    "accepts_user_insurance": "unknown"
-  },
-  {
-    "hospital_name": "Leveraging the Health Care System to Improve Outcomes and Promote Health Equity",
-    "link": "https://www.ncbi.nlm.nih.gov/books/NBK551477/",
-    "institution_type": "Government Facility",
-    "accepts_user_insurance": "unknown"
-  },
-  {
-    "hospital_name": "Search for Sutter Health Locations Near You",
-    "link": "https://www.sutterhealth.org/find-location",
+    "hospital_name": "Stanford Primary Care in Santa Clara",
+    "link": "https://stanfordhealthcare.org/medical-clinics/stanford-primary-care-santa-clara.html",
     "institution_type": "Healthcare Facility",
     "accepts_user_insurance": "unknown"
   },
   {
-    "hospital_name": "Race, Ethnicity, and Sex Affect Risk for Polyps Greater than 9 mm in ...",
-    "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4121117/",
-    "institution_type": "Government Facility",
+    "hospital_name": "Getwell Urgent Care: Urgent Care Near Me in Santa Clara, CA",
+    "link": "https://getwelluc.org/",
+    "institution_type": "Urgent Care",
+    "accepts_user_insurance": "unknown"
+  },
+  {
+    "hospital_name": "Santa Clara Valley Medical Center - Santa Clara Valley Healthcare",
+    "link": "https://scvmc.scvh.org/home",
+    "institution_type": "Medical Center",
+    "accepts_user_insurance": "unknown"
+  },
+  {
+    "hospital_name": "Find a Provider | Santa Clara Valley Medical Center",
+    "link": "https://scvmc.scvh.org/find-provider",
+    "institution_type": "Medical Center",
+    "accepts_user_insurance": "unknown"
+  },
+  {
+    "hospital_name": "Cancer Center in South Bay - Stanford Health Care",
+    "link": "https://stanfordhealthcare.org/medical-clinics/south-bay-cancer-center.html",
+    "institution_type": "Healthcare Facility",
     "accepts_user_insurance": "unknown"
   }
 ]

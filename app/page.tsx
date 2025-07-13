@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { Loader2, Send, User, Bot, Heart, Clock } from 'lucide-react'
+import { Loader2, Send, User, Bot, Heart, Clock, Shield } from 'lucide-react'
 import { toast } from 'sonner'
 
 interface Message {
@@ -34,6 +34,13 @@ interface ChatResponse {
   patient_data: PatientData
   next_step: string
   extraction_data?: any
+  guardrail_triggered?: boolean
+}
+
+interface ApiResponse {
+  success: boolean
+  data: ChatResponse
+  guardrail_warning?: string
 }
 
 export default function PatientHeroChat() {
@@ -96,7 +103,21 @@ export default function PatientHeroChat() {
         throw new Error('Failed to send message')
       }
 
-      const data = await response.json()
+      const data: ApiResponse = await response.json()
+      
+      // Check for guardrail warnings and add as system message
+      if (data.guardrail_warning) {
+        const guardrailMessage: Message = {
+          id: (Date.now() + 0.5).toString(),
+          content: `🛡️ Safety Notice: ${data.guardrail_warning}`,
+          sender: 'assistant',
+          timestamp: new Date(),
+          agent: 'guardrail_system'
+        }
+        setMessages(prev => [...prev, guardrailMessage])
+        toast.warning(`Safety Notice: ${data.guardrail_warning}`)
+      }
+      
       const chatResponse: ChatResponse = data.data
 
       // Update session data
@@ -117,9 +138,19 @@ export default function PatientHeroChat() {
 
       setMessages(prev => [...prev, assistantMessage])
 
+      // Show guardrail warning if present
+      if (data.guardrail_warning) {
+        toast.warning(`Safety Notice: ${data.guardrail_warning}`)
+      }
+
       // Show progress notifications
       if (chatResponse.next_step === 'reasoning_analysis') {
         toast.success('Basic information collected! Moving to symptom analysis.')
+      }
+
+      // Show guardrail activation if needed
+      if (chatResponse.agent === 'guardrail_system') {
+        toast.info('Safety systems activated to ensure appropriate medical guidance.')
       }
 
     } catch (error) {
@@ -152,6 +183,8 @@ export default function PatientHeroChat() {
         return 'Medical Reasoning'
       case 'extraction_agent':
         return 'Data Specialist'
+      case 'guardrail_system':
+        return 'Safety Guardian'
       default:
         return 'PatientHero AI'
     }
@@ -263,6 +296,8 @@ export default function PatientHeroChat() {
                           <AvatarFallback>
                             {message.sender === 'user' ? (
                               <User className="w-4 h-4" />
+                            ) : message.agent === 'guardrail_system' ? (
+                              <Shield className="w-4 h-4 text-orange-500" />
                             ) : (
                               <Bot className="w-4 h-4" />
                             )}

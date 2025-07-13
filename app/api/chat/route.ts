@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { PatientHeroGuardrails } from '@/lib/weave-guardrails'
 
 interface ChatMessage {
   message: string
@@ -22,6 +23,13 @@ interface CrewAIResponse {
   patient_data: PatientData
   next_step: string
   extraction_data?: any
+}
+
+interface ChatResponse {
+  success: boolean
+  data?: CrewAIResponse
+  error?: string
+  guardrail_warning?: string
 }
 
 // Connect to your CrewAI Python backend
@@ -97,30 +105,68 @@ function simulateCrewAIResponse(userInput: string, sessionId?: string): CrewAIRe
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse<ChatResponse>> {
   try {
     const body = await request.json()
     const { message, sessionId } = body
 
     if (!message) {
       return NextResponse.json(
-        { error: 'Message is required' },
+        { success: false, error: 'Message is required' },
         { status: 400 }
       )
+    }
+
+    // Initialize guardrails
+    const guardrails = PatientHeroGuardrails.getInstance()
+    
+    // Validate user input first
+    const inputValidation = await guardrails.validateUserInput(message)
+    if (!inputValidation.allowed) {
+      console.log(`🚨 Guardrail blocked user input: ${inputValidation.reason}`)
+      
+      return NextResponse.json({
+        success: true,
+        data: {
+          agent: 'guardrail_system',
+          response: "I notice your message contains content that I can't process. Please rephrase your message and ensure it's related to your healthcare needs.",
+          patient_data: { 
+            session_id: sessionId || `session_${Date.now()}`,
+            conversation_history: []
+          },
+          next_step: 'continue_basic_info'
+        },
+        guardrail_warning: inputValidation.reason
+      })
     }
 
     // Call CrewAI backend
     const crewAIResponse = await callCrewAIBackend(message, sessionId)
 
+    // Validate AI response with guardrails
+    const responseValidation = await guardrails.validateAIResponse(
+      crewAIResponse.response, 
+      message
+    )
+    
+    if (!responseValidation.allowed) {
+      console.log(`🚨 Guardrail blocked AI response: ${responseValidation.reason}`)
+      
+      // Replace with safe fallback response
+      crewAIResponse.response = "I apologize, but I need to rephrase my response. Could you please tell me more about your healthcare needs so I can assist you better?"
+      crewAIResponse.agent = 'guardrail_system'
+    }
+
     return NextResponse.json({
       success: true,
-      data: crewAIResponse
+      data: crewAIResponse,
+      guardrail_warning: !responseValidation.allowed ? responseValidation.reason : undefined
     })
 
   } catch (error) {
     console.error('Chat API error:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { success: false, error: 'Internal server error' },
       { status: 500 }
     )
   }
