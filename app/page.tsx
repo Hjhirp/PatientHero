@@ -89,8 +89,9 @@ export default function PatientHeroChat() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: content.trim(),
-          sessionId: sessionId
+          user_input: content.trim(),
+          session_id: sessionId || `frontend-${Date.now()}`,
+          collect_patient_data: true
         })
       })
 
@@ -99,7 +100,7 @@ export default function PatientHeroChat() {
       }
 
       const data = await response.json()
-      const chatResponse: ChatResponse = data.data
+      const chatResponse: ChatResponse = data
 
       // Update session data
       if (!sessionId) {

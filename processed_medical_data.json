@@ -1,32 +1,32 @@
 [
   {
-    "hospital_name": "UCSF Health",
-    "link": "https://www.ucsfhealth.org/",
+    "hospital_name": "Stanford Primary Care in Santa Clara",
+    "link": "https://stanfordhealthcare.org/medical-clinics/stanford-primary-care-santa-clara.html",
     "institution_type": "Healthcare Facility",
     "accepts_user_insurance": "unknown"
   },
   {
-    "hospital_name": "CPMC Van Ness Campus",
-    "link": "https://www.sutterhealth.org/find-location/facility/cpmc-van-ness-campus",
-    "institution_type": "Government Facility",
-    "accepts_user_insurance": "unknown"
-  },
-  {
-    "hospital_name": "UCSF Medical Center Ranks Among Nation's Best for 2024-25",
-    "link": "https://www.ucsfhealth.org/lp/us-news",
+    "hospital_name": "Find a Provider | Santa Clara Valley Medical Center",
+    "link": "https://scvmc.scvh.org/find-provider",
     "institution_type": "Medical Center",
     "accepts_user_insurance": "unknown"
   },
   {
-    "hospital_name": "UCSF Medical Center - Wikipedia",
-    "link": "https://en.wikipedia.org/wiki/UCSF_Medical_Center",
+    "hospital_name": "Santa Clara Valley Medical Center - Santa Clara Valley Healthcare",
+    "link": "https://scvmc.scvh.org/home",
     "institution_type": "Medical Center",
     "accepts_user_insurance": "unknown"
   },
   {
-    "hospital_name": "San Francisco VA Medical Center | Veterans Affairs - VA.gov",
-    "link": "https://www.va.gov/san-francisco-health-care/locations/san-francisco-va-medical-center/",
-    "institution_type": "Medical Center",
+    "hospital_name": "Getwell Urgent Care: Urgent Care Near Me in Santa Clara, CA",
+    "link": "https://getwelluc.org/",
+    "institution_type": "Urgent Care",
+    "accepts_user_insurance": "unknown"
+  },
+  {
+    "hospital_name": "Cancer Center in South Bay - Stanford Health Care",
+    "link": "https://stanfordhealthcare.org/medical-clinics/south-bay-cancer-center.html",
+    "institution_type": "Healthcare Facility",
     "accepts_user_insurance": "unknown"
   }
 ]

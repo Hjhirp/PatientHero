@@ -1,0 +1,221 @@
+{
+  "clinics_houston_77065": [
+    {
+      "name": "MD Medical Group - West Houston",
+      "address": "11840 FM 1960 Road West, Houston, TX 77065",
+      "website": "https://mdmedicalgroup.us/location/west-houston/",
+      "specialty": "Family Medicine and Pediatrics",
+      "phone": "832-912-7044",
+      "appointment_slots": [
+        {
+          "time": ".path{fill:none;stroke:#000;stroke-miterlimit:10;stroke-width:1.5px;}",
+          "element": "<a id=\"search_button\" class=\"top-bar-right-icon top-bar-right-icon-search search_button\" href=\"#\"><s",
+          "selector": "a",
+          "source": "direct_extraction"
+        }
+      ],
+      "last_checked": "2025-07-13T13:03:52.090642",
+      "status": "success"
+    },
+    {
+      "name": "Renal Clinic of Houston",
+      "address": "10726 Huffmeister Rd, Suite 250, Houston, TX 77065",
+      "website": "https://www.renalclinicofhouston.com/location/tx/houston",
+      "specialty": "Nephrology",
+      "phone": "281-890-9944",
+      "appointment_slots": [
+        {
+          "time": "5799\nA",
+          "source": "text_extraction",
+          "element": "N/A"
+        },
+        {
+          "time": "411 P",
+          "source": "text_extraction",
+          "element": "N/A"
+        },
+        {
+          "time": "9100\nA",
+          "source": "text_extraction",
+          "element": "N/A"
+        },
+        {
+          "time": "9944\nA",
+          "source": "text_extraction",
+          "element": "N/A"
+        }
+      ],
+      "last_checked": "2025-07-13T13:03:50.341990",
+      "status": "success"
+    },
+    {
+      "name": "Kelsey-Seybold FM 1960 Clinic",
+      "address": "13114 FM 1960 West, Houston, TX 77065",
+      "website": "https://www.kelsey-seybold.com/find-a-location/fm-1960-clinic",
+      "specialty": "Multispecialty",
+      "phone": "713-442-8800",
+      "note": "Permanently closing April 30, 2025. Physicians moving to Northwest Campus.",
+      "appointment_slots": [
+        {
+          "time": "0427\u00a0\nA",
+          "source": "text_extraction",
+          "element": "N/A"
+        },
+        {
+          "time": "7 A",
+          "source": "text_extraction",
+          "element": "N/A"
+        }
+      ],
+      "last_checked": "2025-07-13T13:03:44.192201",
+      "status": "success"
+    },
+    {
+      "name": "Oak Street Health - Cypress",
+      "address": "11600 Farm to Market 1960 Rd W, Houston, TX 77065",
+      "website": "https://www.oakstreethealth.com/locations/houston-tx/cypress-doctors-office",
+      "specialty": "Primary Care (Medicare/Senior Focus)",
+      "phone": "888-812-1183",
+      "appointment_slots": [
+        {
+          "time": "Fri\nAug 8\n9:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 8, 2025 at 9:00 AM\" href=\"https:",
+          "selector": "a",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Fri\nAug 8\n2:20 PM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 8, 2025 at 2:20 PM\" href=\"https:",
+          "selector": "a",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Mon\nAug 11\n9:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 11, 2025 at 9:00 AM\" href=\"https",
+          "selector": "a",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Fri\n          Aug 1\n        \n        8:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 1, 2025 at 8:00 AM\" href=\"https:",
+          "selector": "a",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Mon\n          Aug 4\n        \n        9:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 4, 2025 at 9:00 AM\" href=\"https:",
+          "selector": "a",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Wed\n          Aug 6\n        \n        8:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 6, 2025 at 8:00 AM\" href=\"https:",
+          "selector": "a",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Wed\n          Aug 6\n        \n        8:40 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 6, 2025 at 8:40 AM\" href=\"https:",
+          "selector": "a",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Wed\n          Aug 6\n        \n        10:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 6, 2025 at 10:00 AM\" href=\"https",
+          "selector": "a",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Mon\n          Aug 11\n        \n        8:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 11, 2025 at 8:00 AM\" href=\"https",
+          "selector": "a",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Fri\nAug 8\n9:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 8, 2025 at 9:00 AM\" href=\"https:",
+          "selector": "a[class*=\"time\"]",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Fri\nAug 8\n2:20 PM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 8, 2025 at 2:20 PM\" href=\"https:",
+          "selector": "a[class*=\"time\"]",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Mon\nAug 11\n9:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 11, 2025 at 9:00 AM\" href=\"https",
+          "selector": "a[class*=\"time\"]",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Fri\n          Aug 1\n        \n        8:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 1, 2025 at 8:00 AM\" href=\"https:",
+          "selector": "a[class*=\"time\"]",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Mon\n          Aug 4\n        \n        9:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 4, 2025 at 9:00 AM\" href=\"https:",
+          "selector": "a[class*=\"time\"]",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Wed\n          Aug 6\n        \n        8:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 6, 2025 at 8:00 AM\" href=\"https:",
+          "selector": "a[class*=\"time\"]",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Wed\n          Aug 6\n        \n        8:40 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 6, 2025 at 8:40 AM\" href=\"https:",
+          "selector": "a[class*=\"time\"]",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Wed\n          Aug 6\n        \n        10:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 6, 2025 at 10:00 AM\" href=\"https",
+          "selector": "a[class*=\"time\"]",
+          "source": "direct_extraction"
+        },
+        {
+          "time": "Mon\n          Aug 11\n        \n        8:00 AM",
+          "element": "<a class=\"btn btn--timeslot btn--timeslot--date\" aria-label=\"August 11, 2025 at 8:00 AM\" href=\"https",
+          "selector": "a[class*=\"time\"]",
+          "source": "direct_extraction"
+        }
+      ],
+      "last_checked": "2025-07-13T13:03:44.839599",
+      "status": "success"
+    },
+    {
+      "name": "Convenient Urgent Care",
+      "address": "10311 N Eldridge Pkwy, Houston, TX 77065",
+      "website": "https://convenienturgent.com/",
+      "specialty": "Urgent Care",
+      "phone": "Not specified",
+      "appointment_slots": [
+        {
+          "time": "7091\nP",
+          "source": "text_extraction",
+          "element": "N/A"
+        },
+        {
+          "time": "2025 A",
+          "source": "text_extraction",
+          "element": "N/A"
+        }
+      ],
+      "last_checked": "2025-07-13T13:03:43.189560",
+      "status": "success"
+    }
+  ],
+  "metadata": {
+    "zip_code": "77065",
+    "city": "Houston",
+    "state": "Texas",
+    "search_date": "July 2025",
+    "total_clinics": 5
+  }
+}
