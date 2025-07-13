@@ -1,32 +1,32 @@
 [
   {
-    "hospital_name": "Cedars-Sinai Medical Center",
-    "link": "https://www.cedars-sinai.org/locations/cedars-sinai-main-campus-89.html",
+    "hospital_name": "Stanford Health Care (SHC) - Stanford Medical Center | Stanford ...",
+    "link": "https://stanfordhealthcare.org/",
     "institution_type": "Medical Center",
     "accepts_user_insurance": "unknown"
   },
   {
-    "hospital_name": "Cedars-Sinai | Cedars-Sinai",
-    "link": "https://www.cedars-sinai.org/home.html",
-    "institution_type": "Healthcare Facility",
-    "accepts_user_insurance": "unknown"
-  },
-  {
-    "hospital_name": "Ronald Reagan UCLA Medical Center, Los Angeles Hospital",
-    "link": "https://www.uclahealth.org/hospitals/reagan",
+    "hospital_name": "Stanford Health Care (SHC) \u2013 (formerly Stanford Hospital & Clinics)",
+    "link": "https://aemqa.stanfordhealthcare.org/",
     "institution_type": "Hospital",
     "accepts_user_insurance": "unknown"
   },
   {
-    "hospital_name": "Santa Monica Medical Center",
-    "link": "https://www.uclahealth.org/hospitals/santa-monica",
-    "institution_type": "Medical Center",
+    "hospital_name": "Menlo Medical Clinic | Stanford Health Care",
+    "link": "https://stanfordhealthcare.org/medical-clinics/menlo-medical-clinic.html",
+    "institution_type": "Clinic",
     "accepts_user_insurance": "unknown"
   },
   {
-    "hospital_name": "Cedars-Sinai Urgent Care - Beverly Hills",
-    "link": "https://www.cedars-sinai.org/locations/urgent-care-beverly-hills-170.html",
+    "hospital_name": "Palo Alto Center Urgent Care - Sutter Health",
+    "link": "https://www.sutterhealth.org/find-location/facility/palo-alto-center-urgent-care-1043246904",
     "institution_type": "Urgent Care",
+    "accepts_user_insurance": "unknown"
+  },
+  {
+    "hospital_name": "Palo Alto VA Medical Center | Veterans Affairs - VA.gov",
+    "link": "https://www.va.gov/palo-alto-health-care/locations/palo-alto-va-medical-center/",
+    "institution_type": "Medical Center",
     "accepts_user_insurance": "unknown"
   }
 ]

@@ -19,7 +19,7 @@ def test_exa_helper():
     test_patient = {
         "medical_condition": "chest pain",
         "zip_code": "94301",
-        "insurance": "Blue Cross Blue Shield",
+        "insurance": "Aetna",
         "phone_suffix": "1234",
         "session_id": "test-session-123",
         "timestamp": datetime.now().isoformat()

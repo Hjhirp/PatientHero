@@ -51,7 +51,7 @@ class ExaHelper:
             if not ('.org' in url or '.gov' in url):
                 continue
             # Use Exa answer API to check insurance acceptance
-            accepts_insurance = self._exa_check_insurance(insurance, url)
+            accepts_insurance = self._exa_check_insurance(item.title, insurance, url)
             hospital = {
                 "hospital_name": item.title,
                 "link": url,
@@ -82,13 +82,13 @@ class ExaHelper:
             return 'Government Facility'
         return 'Healthcare Facility'
 
-    def _exa_check_insurance(self, insurance: str, url: str) -> str:
+    def _exa_check_insurance(self, hospital_name: str, insurance: str, url: str) -> str:
         """Use Exa answer API to check if insurance is accepted on the hospital's page."""
         if not insurance or not url or not self.exa:
             return "unknown"
         try:
-            question = f"Does this hospital accept {insurance}?"
-            answer = self.exa.answer(question=question, url=url)
+            question = f"Does {hospital_name} accept {insurance}?"
+            answer = self.exa.answer(question=question)    
             if answer and hasattr(answer, 'answer'):
                 ans = answer.answer.lower()
                 if 'yes' in ans or 'accept' in ans:
